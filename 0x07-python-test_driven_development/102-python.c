@@ -1,9 +1,4 @@
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-
-#if PY_VERSION_HEX < 0x03040000
-#define PyUnicode_GET_LENGTH PyUnicode_GET_SIZE
-#endif
+#include "Python.h"
 
 /**
  * print_python_string - Function that prints
@@ -17,33 +12,32 @@
 
 void print_python_string(PyObject *p)
 {
-    if (!Py_IS_TYPE(p, &PyUnicode_Type)) {
-        printf("  [ERROR] Invalid String Object\n");
-        return;
-    }
+	long int str_length;
 
-    fflush(stdout);
+	fflush(stdout);
 
-    /* Print header for string object information */
-    printf("[.] string object info\n");
+	/* Print header for string object information */
+	printf("[.] string object info\n");
 
-    /* Extract the length of the string */
-    Py_ssize_t str_length = PyUnicode_GET_LENGTH(p);
+	/* Check if the given PyObject is a string */
+	if (strcmp(p->ob_type->tp_name, "str") != 0)
+	{
+		printf("  [ERROR] Invalid String Object\n");
+		return;
+	}
 
-    /* Check if the string is a compact ASCII or compact Unicode object */
-    if (PyUnicode_IS_READY(p) && PyUnicode_IS_COMPACT_ASCII(p))
-        printf("  type: compact ascii\n");
-    else
-        printf("  type: compact unicode object\n");
+	/* Extract the length of the string */
+	str_length = ((PyASCIIObject *)(p))->length;
 
-    /* Print the length of the string */
-    printf("  length: %ld\n", (long)str_length);
+	/* Check if the string is a compact ASCII or compact Unicode object */
+	if (PyUnicode_IS_COMPACT_ASCII(p))
+		printf("  type: compact ascii\n");
+	else
+		printf("  type: compact unicode object\n");
 
-    /* Print the value of the string */
-    const char *utf8_str = PyUnicode_AsUTF8(p);
-    if (utf8_str) {
-        printf("  value: %s\n", utf8_str);
-    } else {
-        printf("  value: <not available>\n");
-    }
+	/* Print the length of the string */
+	printf("  length: %ld\n", str_length);
+
+	/* Print the value of the string */
+	printf("  value: %ls\n", PyUnicode_AsWideCharString(p, &str_length));
 }

@@ -20,7 +20,7 @@ if __name__ == "__main__":
     query_rows = cur.fetchall()
     # Print each row
     for row in query_rows:
-        print(row) 
+        print(row)
     # Close cursor and connection
     cur.close()
     conn.close()

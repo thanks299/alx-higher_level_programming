@@ -14,17 +14,13 @@ if __name__ == "__main__":
                             charset="utf8")
     # Create a cursor object using cursor() method
     cur = conn.cursor()
-    
     # Execute SQL query to select all states from states table
     cur.execute("SELECT * FROM states ORDER BY id ASC")
-    
     # Fetch all the rows in a list of lists
     query_rows = cur.fetchall()
-    
     # Print each row
     for row in query_rows:
-        print(row)
-    
+        print(row) 
     # Close cursor and connection
     cur.close()
     conn.close()

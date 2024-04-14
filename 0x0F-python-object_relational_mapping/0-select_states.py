@@ -6,12 +6,9 @@ import sys
 
 if __name__ == "__main__":
     # Connect to MySQL
-    conn = MySQLdb.connect(host="localhost",
-                            port=3306,
-                            user=sys.argv[1],
-                            passwd=sys.argv[2],
-                            db=sys.argv[3],
-                            charset="utf8")
+    conn = MySQLdb.connect(host="localhost", port=3306,
+            user=sys.argv[1], passwd=sys.argv[2],
+            db=sys.argv[3], charset="utf8")
     # Create a cursor object using cursor() method
     cur = conn.cursor()
     # Execute SQL query to select all states from states table

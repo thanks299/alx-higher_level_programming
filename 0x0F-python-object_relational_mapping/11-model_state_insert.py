@@ -13,7 +13,8 @@ if __name__ == "__main__":
     username, password, db_name = sys.argv[1:]
 
     # Database engine creation
-    engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}')
+    engine = create_engine(
+            f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}')
 
     # Create all tables in the engine
     Base.metadata.create_all(engine)

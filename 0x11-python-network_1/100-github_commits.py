@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Python script that lists 10 commits (from the most recent to oldest) of a repository
+Python script that lists 10 commits (from
+the most recent to oldest) of a repository
 by a specific user using the GitHub API.
 """
 
